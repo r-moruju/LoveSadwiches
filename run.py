@@ -3,7 +3,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-
+from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -85,6 +85,23 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
+def get_last_5_entry_sales():
+    """
+    Collects collumns of data from sales worksheet, collecting
+    the last 5 entries for each sandwich and return the data as a list of lists.
+    """
+    sales = SHEET.worksheet("sales")
+    # column = sales.col_values(3)
+    # print(column)
+
+    columns = []
+    for ind in range(6):
+        column = sales.col_values(ind + 1)
+        columns.append(column[-5:])
+    
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -97,4 +114,6 @@ def main():
 
 
 print("welcome to Love Sandwiches Data Automation")
-main()
+# main()
+
+get_last_5_entry_sales()
