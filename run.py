@@ -1,8 +1,9 @@
+"""
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
+"""
 
-from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -67,7 +68,7 @@ def update_sales_worksheet(data):
 def calculate_surplus_data(sales_row):
     """
     Compare sales with stock ad calculate the surplus for each item type.
-    
+
     The surplus is defined as the sales figure subtracted from the stock:
     - Positive surplus indicates waste
     - Negative surplus indicates extra made when stock was out.
@@ -79,8 +80,18 @@ def calculate_surplus_data(sales_row):
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
         surplus_data.append(surplus)
-    
+
     return surplus_data
+
+
+def update_surplus_worksheet(data):
+    """
+    Update surplus worksheet, add new row with the list data deducted.
+    """
+    print("Updating Surplus Worksheet...\n")
+    surplus_worksheet = SHEET.worksheet("surplus")
+    surplus_worksheet.append_row(data)
+    print("Surplus worsheet update successfully. \n")
 
 
 def main():
@@ -91,7 +102,7 @@ def main():
     sales_data = [int(num) for num in data]
     update_sales_worksheet(sales_data)
     new_surplus_data = calculate_surplus_data(sales_data)
-    print(new_surplus_data)
+    update_surplus_worksheet(new_surplus_data)
 
 
 print("welcome to Love Sandwiches Data Automation")
