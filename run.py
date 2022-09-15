@@ -3,7 +3,6 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -95,7 +94,7 @@ def get_last_5_entry_sales():
     for ind in range(6):
         column = sales.col_values(ind + 1)
         columns.append(column[-5:])
-    
+
     return columns
 
 
@@ -110,7 +109,7 @@ def calculate_stock_data(data):
         average = sum(int_column) / len(int_column)
         stock_num = average * 1.1
         new_stock_data.append(round(stock_num))
-    
+
     return new_stock_data
 
 
